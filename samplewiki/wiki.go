@@ -19,10 +19,12 @@ func (p *Page) save() error {
 }
 
 // ページのタイトルを読み込む関数
+// 最後は返り値の型が*oageとerrorの２つなのでかっこで囲んでいる
 func loadPage(title string) (*Page, error) {
 	filename := title + ".txt"
 
 	body, err := ioutil.ReadFile(filename)
+
 	if err != nil {
 		return nil, err
 		// go言語では探したものがなかった場合はnul値だけでなく、なかったファイル名（err）を返り値で返す
