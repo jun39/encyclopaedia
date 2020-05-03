@@ -18,7 +18,7 @@ type Page struct {
 	Body  []byte
 }
 
-func (p *Page) save() error {
+func saveHandler(title string) (*Page, error) {
 	filename := p.Title + ".txt"
 	return ioutil.WriteFile(filename, p.Body, 0600)
 }
@@ -34,6 +34,7 @@ func loadPage(title string) (*Page, error) {
 
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	title := r.URL.Path[len("/view/"):]
+	// len関数で/view/の文字数を取得してそこ以下のパスを取得
 	p, _ := loadPage(title)
 	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", p.Title, p.Body)
 }
